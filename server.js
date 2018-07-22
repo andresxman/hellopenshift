@@ -1,10 +1,24 @@
-var http = require('http');
+var express = require('express'),
+    fs = require('fs'),
+    app = express();
+//    eps = require('ejs'),
+//    morgan = require('morgan');
 
-var port = process.env.PORT || 8080;
+var app = express();
 
-http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Hello from OpenShift\n");
-}).listen(port);
+var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-console.log("Server running on port " + port);
+
+
+// app is running!
+app.get('/', function(req, res) {
+    res.send('Hello from NodeJS  at '+ new Date());
+});
+
+
+
+app.listen(8080, ip);
+
+
+
+module.exports = app;
